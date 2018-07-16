@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title> Filter Input Menu </title>
+		<!--<script src="init.js"></script>-->
+		<script src="https://unpkg.com/react@15/dist/react.js"></script>
+		<script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+		
+		<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+		
+		
+		<!--<script src="initReact.js"></script>-->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<link href='https://fonts.googleapis.com/css?family=Alegreya Sans SC' rel='stylesheet'>
+		<link rel="stylesheet" tyle="text/css" href="style.css"/>
+		
+		<script type="text/babel">
+		
+		var fields = ["name","Descriptor","fat","protein","carb","allergies","Random String","BALONA SWADNDW OITCH"];
+
+window.onload = function() {
+	class FField extends React.Component {
+		render() {
+			return <p className="formField">{this.props.name}</p>;
+		}
+	}
+	class FValue extends React.Component {
+		render() {
+			console.log(this.props);
+			var FStyle = {
+				top: this.props.top,
+				left: this.props.left
+			};
+			var F2Style = {
+				top: this.props.top + 33,
+				left: 'calc(30vw + 95px)',
+				position: "absolute"
+			}
+			return (
+				<div>
+					<input style={FStyle} className="formValue" placeholder={this.props.name}></input>
+					<svg height="3px" width="300px" style={F2Style}><rect width="100%" height="100%" rx="15" ry="15"/></svg>
+				</div>);
+		}
+	}
+	
+	//h+= "<svg class=\"underline\" style=\"width:250px;height:2px;position:absolute;margin:0px;padding:0px;top:" + (bottom+20) + "px;left:" + (startHere-10) + "px;\"><rect x=\"0\" y=\"0\" width=\"100%\" height=\"100\" rx=\"15\" ry=\"15\" /></svg>"
+	class AllFields extends React.Component {
+		createFields = () => {
+			var result = [];
+			for (var i=0; i < fields.length; i++) {
+				result.push(
+						<FField name={fields[i]}/>
+						//<FValue name={fields[i]}/>
+				);
+			}
+		return result;
+	}
+		render() {
+			return (
+				<div>
+					{ this.createFields() }
+				</div>
+			)
+		}
+	}
+	class AllValues extends React.Component {
+	
+		createValues = () => {
+			var result = [];
+			var top = 0;
+			var left = 'calc(30vw + 100px)';
+			//Precondition: AllFields already rendered.
+			//Collect all of class field's bounding boxes.
+			//Make a FValue with the positions in correct spot.
+			var jrfields = document.getElementsByClassName("formField");
+
+			console.log(left,"is left.");
+			for (var i=0; i < jrfields.length; i++) {
+				top = jrfields[i].getBoundingClientRect().bottom;
+				console.log(top,"is top.");
+				top = (top - 35);
+
+				result.push(<FValue top={top} left={left} name={fields[i]}/>);
+			}
+			return result;
+		}
+		render() {
+			return (
+				<div>
+					{ this.createValues() }
+				</div>
+			)
+		}
+	
+	}
+	
+	
+	
+	
+	ReactDOM.render(
+			<AllFields/>, 
+		document.getElementById('fie'));
+	ReactDOM.render(
+			<AllValues/>, 
+		document.getElementById('val'));
+		
+		
+}
+		</script>
+	</head>
+	<body>
+		<h1 id="title"> Viome Filter Portal </h1>
+		<div id="outForm">
+			<div id="fie"></div>
+			<div id="val"></div>
+		
+
+		</div>
+	</body>
+</html>

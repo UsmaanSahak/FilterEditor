@@ -1,0 +1,34 @@
+Multiple fields, have visitor input values. 
+Confirm the values in a preview first.
+In preview menu, have it saved into backend.
+
+
+
+
+Array of arrays, where inner arrays are 2 in size. Field and value.
+JSON.dumps(OuterArray), and store into backend for now.
+
+First do it in vanilla javascript, and then redo it with REACT.
+
+REACT:
+For the FilterForm div, just add to array in order to scalably add more h2+input into the html.
+
+
+Instead, do two columns
+
+
+Using javascript:
+Click on a transparent input box with a line and a border next to it.
+When clicked, have an animation occur where it 'pulses' yellow in reaction before staying highlighted.
+
+
+
+
+
+
+Make a transparent yellow rectangle that is hidden and located half way above name, half inside.
+Once one thing is clicked, create animation that slides the svg over the selected field and input, highlighting it.
+
+
+Press submit or press enter;
+get an alert, maybe by disappearing this div and having a new div appear with the values, and a new button or enter key to confirm.

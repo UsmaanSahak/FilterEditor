@@ -1,0 +1,57 @@
+
+.formValue {
+	position: absolute;
+	float: left;
+	margin-top: 15px;
+	/*height:33px;*/
+	border-bottom: 0px;
+	border-left: 0px;
+	border-right: 0px;
+	border-top: 0px;
+	
+}
+
+.formField {
+	margin-bottom: 20px;
+	max-width:100px;
+	float: left;
+	clear: left;
+	font-family: Alegreya Sans SC;
+}
+
+#outForm {
+	width: 50%;
+	max-width: 400px;
+	height: 500px;
+	margin-left: 30%;
+	padding: 5px;
+	border: 1px dotted gray;
+	/*font-family: Alegreya Sans SC;*/
+}
+/*
+#fieldCol {
+	font-family: Alegreya Sans SC;
+	font-size: 22px;
+	float:left;
+	width: 200px;
+	/*border-bottom: 1px solid red;*/
+/*}
+#valueCol {
+	float:left;
+	/*margin-top:-20px;*/
+	/*border: 1px dotted blue;*/
+/*}*/
+
+#title {
+	font-family: Alegreya Sans SC;
+}
+
+
+
+
+
+
+
+
+
+
