@@ -97,26 +97,51 @@ window.onload = function() {
 	}
 	
 	
+	class Confirm extends React.Component {
+		render() {
+			//Render a 'popup box' in front of everything. basically hide it normally, but make vis.
+			return (
+				<div id="popupConfirm">
+					<p> Confirm? fas</p>
+				</div>
+			)
+		}
+		
+		
+	}
 	
 	
+	
+	
+	
+	
+	
+
+		
+	///*
 	ReactDOM.render(
 			<AllFields/>, 
 		document.getElementById('fie'));
 	ReactDOM.render(
 			<AllValues/>, 
 		document.getElementById('val'));
-		
+	//*/
+	/*
+		ReactDOM.render(
+		<Confirm/>,
+		document.getElementById('confirm'));
+	*/
 		
 }
 		</script>
 	</head>
 	<body>
 		<h1 id="title"> Viome Filter Portal </h1>
+
 		<div id="outForm">
 			<div id="fie"></div>
 			<div id="val"></div>
-		
-
 		</div>
+		<div id="confirm"></div>
 	</body>
 </html>

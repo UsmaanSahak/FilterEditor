@@ -32,3 +32,11 @@ Once one thing is clicked, create animation that slides the svg over the selecte
 
 Press submit or press enter;
 get an alert, maybe by disappearing this div and having a new div appear with the values, and a new button or enter key to confirm.
+
+
+
+
+
+1 - Blue blur at sides
+2 - Line border on form
+3 - shadow border on confirmation popup
