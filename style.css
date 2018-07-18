@@ -13,6 +13,7 @@
 
 .formField {
 	margin-bottom: 20px;
+	margin-left: 20px;
 	max-width:100px;
 	float: left;
 	clear: left;
@@ -23,7 +24,13 @@
 	width: 50%;
 	max-width: 400px;
 	height: 500px;
-	margin-left: 30%;
+	background: white;
+	
+	/*margin-left: 30%;*/
+	margin-left: auto;
+	margin-right: auto;
+	
+	
 	padding: 5px;
 	border-top: 1px dotted gray;
 	border-bottom: 1px dotted gray;
@@ -32,6 +39,10 @@
 }
 #popupConfirm {
 	
+}
+svg {
+	max-width: 230px;
+	width: 30vw;
 }
 #confirm {
 	visibility: hidden;
@@ -50,6 +61,32 @@
   box-shadow: inset 0 -1px 0 0 #046ca3, inset 0 1px 0 0 #046ca3, 0 1px 0 0 #046ca3, 0 -1px 0 0 #046ca3;
 
 }
+#form {
+	margin-left:auto;
+	margin-right:auto;
+	width: 800px;
+	opacity: 0.0;
+	animation: fadeOut 30s forwards
+}
+#form:hover {
+	animation: fadeIn 1s forwards
+}
+
+@keyframes fadeIn {
+	from {opacity: 0.5;}
+	to {opacity: 1.0;}
+}
+@keyframes fadeOut {
+	0% {opacity: 1.0;}
+	20% {opacity: 0.5; }
+	90% {opacity: 0.5; }
+	100% {opacity: 0.0; }
+}
+
+body {
+	background: url('colorfulBeach.jpg');
+}
+
 /*
 #fieldCol {
 	font-family: Alegreya Sans SC;
@@ -64,10 +101,44 @@
 	/*border: 1px dotted blue;*/
 /*}*/
 
-#title {
-	font-family: Alegreya Sans SC;
-	margin-left: 30%;
+#logoV {
+	width: 20px;
+	height: 20px;
+	float: left;
+	margin-top:2px;
 }
+#title {
+	width: 410px;
+	font-family: Alegreya Sans SC;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+.errorMessage {
+	font-size: 12px;
+	opacity: 0.0;
+	color: #000;
+	font-family: Roman;
+	width: 150px;
+	display: table;
+	position: absolute;
+	text-align: center;
+	background-color: #fff;
+	border: 5px solid #000;
+	border-radius: 10px;
+	box-shadow: 2px 2px 4px #888;
+	
+}
+.errorMessage:before {
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+	left: -16px;
+	top: 12.5px;
+	border: 10px solid;
+	border-color: transparent #000 transparent transparent;
 
 
 

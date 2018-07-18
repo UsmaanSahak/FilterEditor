@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title> Filter Input Menu </title>
+		<title> Filter Editor Menu </title>
 		<!--<script src="init.js"></script>-->
 		<script src="https://unpkg.com/react@15/dist/react.js"></script>
 		<script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
@@ -17,9 +17,29 @@
 		
 		<script type="text/babel">
 		
-		var fields = ["name","Descriptor","fat","protein","carb","allergies","Random String","BALONA SWADNDW OITCH"];
+		var fields = [["name","Any"],["Descriptor","Any"],["fat (g)","Number"],["protein (g)","Number"],["carb (g)","Number"],["allergies","Any"],["Random String","Any"],["BALONA SWADNDW OITCH","Any"]];
 
 window.onload = function() {
+	class Title extends React.Component {
+		render() {
+			return (
+				<div>
+				<img id="logoV" src="logoVpng.png" alt="Viome Logo"/>
+				<h2>iome Filter Portal</h2>
+				<div id="background"></div>
+				</div>
+			);
+		}
+		resize = () => this.forceUpdate()
+		
+		componentDidMount() {
+			window.addEventListener('resize', this.resize)
+		}
+		componentWillUnmount() {
+			window.removeEventListener('resize', this.resize)
+		}
+	
+	}
 	class FField extends React.Component {
 		render() {
 			return <p className="formField">{this.props.name}</p>;
@@ -34,14 +54,33 @@ window.onload = function() {
 			};
 			var F2Style = {
 				top: this.props.top + 33,
-				left: 'calc(30vw + 95px)',
+				left: this.props.left,
 				position: "absolute"
 			}
-			return (
-				<div>
-					<input style={FStyle} className="formValue" placeholder={this.props.name}></input>
-					<svg height="3px" width="300px" style={F2Style}><rect width="100%" height="100%" rx="15" ry="15"/></svg>
-				</div>);
+			var F3Style = {
+				top: this.props.top - 10,
+				left: this.props.left + 250,
+				position: "absolute"
+			}
+			
+			if (this.props.req == "Number") {
+				return (
+					<div>
+						<input style={FStyle} className="formValue" placeholder={this.props.name} pattern="^[0-9]*$"></input>
+						<svg height="3px" style={F2Style}><rect width="100%" height="100%" rx="15" ry="15"/></svg>
+						<p className="errorMessage" name={this.props.name} style={F3Style}>Please enter a numerical value.</p>
+					</div>
+				);
+			}
+			else {
+				return (
+					<div>
+						<input style={FStyle} className="formValue" placeholder={this.props.name}></input>
+						<svg height="3px" style={F2Style}><rect width="100%" height="100%" rx="15" ry="15"/></svg>
+						<p className="errorMessage" name={this.props.name} style={F3Style}>Please enter a value here.</p>
+					</div>
+				);
+			}
 		}
 	}
 	
@@ -51,7 +90,7 @@ window.onload = function() {
 			var result = [];
 			for (var i=0; i < fields.length; i++) {
 				result.push(
-						<FField name={fields[i]}/>
+						<FField name={fields[i][0]}/>
 						//<FValue name={fields[i]}/>
 				);
 			}
@@ -70,19 +109,20 @@ window.onload = function() {
 		createValues = () => {
 			var result = [];
 			var top = 0;
-			var left = 'calc(30vw + 100px)';
+			//var left = 'calc(30vw + 100px)';
+			
 			//Precondition: AllFields already rendered.
 			//Collect all of class field's bounding boxes.
 			//Make a FValue with the positions in correct spot.
 			var jrfields = document.getElementsByClassName("formField");
-
+			var left = jrfields[0].getBoundingClientRect().left + 100;
 			console.log(left,"is left.");
 			for (var i=0; i < jrfields.length; i++) {
 				top = jrfields[i].getBoundingClientRect().bottom;
-				console.log(top,"is top.");
 				top = (top - 35);
-
-				result.push(<FValue top={top} left={left} name={fields[i]}/>);
+				
+	
+				result.push(<FValue top={top} left={left} name={fields[i][0]} req={fields[i][1]}/>);
 			}
 			return result;
 		}
@@ -92,6 +132,16 @@ window.onload = function() {
 					{ this.createValues() }
 				</div>
 			)
+		}
+		
+		
+		resize = () => this.forceUpdate()
+		
+		componentDidMount() {
+			window.addEventListener('resize', this.resize)
+		}
+		componentWillUnmount() {
+			window.removeEventListener('resize', this.resize)
 		}
 	
 	}
@@ -106,8 +156,6 @@ window.onload = function() {
 				</div>
 			)
 		}
-		
-		
 	}
 	
 	
@@ -119,9 +167,12 @@ window.onload = function() {
 
 		
 	///*
+	
 	ReactDOM.render(
 			<AllFields/>, 
 		document.getElementById('fie'));
+	ReactDOM.render(<Title/>,
+		document.getElementById('title'));
 	ReactDOM.render(
 			<AllValues/>, 
 		document.getElementById('val'));
@@ -131,17 +182,65 @@ window.onload = function() {
 		<Confirm/>,
 		document.getElementById('confirm'));
 	*/
-		
+	window.addEventListener("keypress", function(e) {
+		//console.log(e.which,e.keyCode);
+		if (e.which == 13 || e.keyCode == 13) {
+			var errors  = checkVals();
+			if (errors == 0) {
+				//Go to Confirmation.
+				
+			}
+		}
+		else if (e.which == 9 || e.keyCode == 9) {
+			checkVals();
+		}
+	});
+	window.addEventListener("click", function(e) {
+		checkVals();
+	});
+	
+	function checkVals() {
+		var vals = document.getElementsByClassName("formValue");
+		var i = 0;
+		var error = 0;
+		var allEM = document.getElementsByClassName("errorMessage");
+		for (var k=0; k < allEM.length; k++) {
+			allEM[k].style.opacity = 0.0;
+		}
+		while (i < vals.length) {
+			var pattern = vals[i].getAttribute("pattern");
+			if (pattern) {
+				var re = new RegExp(pattern);
+				//console.log(re.test(vals[i].value));
+				if (!re.test(vals[i].value)) {
+					
+					var sName = vals[i].placeholder;
+					for (var j=0; j < allEM.length; j++) {
+						if (allEM[j].getAttribute("name") == sName) {
+							allEM[j].style.opacity = 1.0;
+							error++;
+							break;
+						}
+					}
+				}
+			}
+			i++;
+		}
+		return error;
+	}
 }
 		</script>
 	</head>
 	<body>
-		<h1 id="title"> Viome Filter Portal </h1>
-
-		<div id="outForm">
-			<div id="fie"></div>
-			<div id="val"></div>
+		
+		<div id="form">
+			<div id="title"></div>
+			<div id="outForm">
+				<div id="fie"></div>
+				<div id="val"></div>
+			</div>
+			<div id="confirm"></div>
 		</div>
-		<div id="confirm"></div>
+		
 	</body>
 </html>
