@@ -17,7 +17,7 @@
 		
 		<script type="text/babel">
 		
-		var fields = [["name","Any"],["Descriptor","Any"],["fat (g)","Number"],["protein (g)","Number"],["carb (g)","Number"],["allergies","Any"],["Random String","Any"],["BALONA SWADNDW OITCH","Any"]];
+		var fields = [["name","Any"],["Descriptor","Any"],["fat (g)","Number"],["protein (g)","Number"],["carb (g)","Number"],["allergies","Any"],["Random String","Any"],["BALsfaf	fsdfkljhj shfks","Any"],["Random String","Any"],["Random String","Any"],["Random String","Any"],["Random String","Any"],["Random String","Any"],["Random String","Any"],["Random String","Any"]];
 
 window.onload = function() {
 	class Title extends React.Component {
@@ -50,16 +50,16 @@ window.onload = function() {
 			console.log(this.props);
 			var FStyle = {
 				top: this.props.top,
-				left: this.props.left
+				left: "300px"
 			};
 			var F2Style = {
 				top: this.props.top + 33,
-				left: this.props.left,
+				left: "300px",
 				position: "absolute"
 			}
 			var F3Style = {
 				top: this.props.top - 10,
-				left: this.props.left + 250,
+				left: "110px",
 				position: "absolute"
 			}
 			
@@ -67,7 +67,7 @@ window.onload = function() {
 				return (
 					<div>
 						<input style={FStyle} className="formValue" placeholder={this.props.name} pattern="^[0-9]*$"></input>
-						<svg height="3px" style={F2Style}><rect width="100%" height="100%" rx="15" ry="15"/></svg>
+						<svg className="underLine" height="3px" style={F2Style}><rect width="100%" height="100%" rx="15" ry="15"/></svg>
 						<p className="errorMessage" name={this.props.name} style={F3Style}>Please enter a numerical value.</p>
 					</div>
 				);
@@ -76,7 +76,7 @@ window.onload = function() {
 				return (
 					<div>
 						<input style={FStyle} className="formValue" placeholder={this.props.name}></input>
-						<svg height="3px" style={F2Style}><rect width="100%" height="100%" rx="15" ry="15"/></svg>
+						<svg className="underLine" height="3px" style={F2Style}><rect width="100%" height="100%" rx="15" ry="15"/></svg>
 						<p className="errorMessage" name={this.props.name} style={F3Style}>Please enter a value here.</p>
 					</div>
 				);
@@ -119,7 +119,7 @@ window.onload = function() {
 			console.log(left,"is left.");
 			for (var i=0; i < jrfields.length; i++) {
 				top = jrfields[i].getBoundingClientRect().bottom;
-				top = (top - 35);
+				top = (top - 103);
 				
 	
 				result.push(<FValue top={top} left={left} name={fields[i][0]} req={fields[i][1]}/>);
