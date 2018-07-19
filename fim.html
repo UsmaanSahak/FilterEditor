@@ -42,7 +42,7 @@ window.onload = function() {
 	}
 	class FField extends React.Component {
 		render() {
-			return <p className="formField">{this.props.name}</p>;
+			return <p className={this.props.fieldType}>{this.props.name}</p>;
 		}
 	}
 	class FValue extends React.Component {
@@ -90,7 +90,7 @@ window.onload = function() {
 			var result = [];
 			for (var i=0; i < fields.length; i++) {
 				result.push(
-						<FField name={fields[i][0]}/>
+						<FField fieldType={this.props.fieldType} name={fields[i][0]}/>
 						//<FValue name={fields[i]}/>
 				);
 			}
@@ -146,15 +146,27 @@ window.onload = function() {
 	
 	}
 	
+	class BlueButton extends React.Component {
+		render() {
+			return (
+				<div className="blueButton" id={this.props.id}>
+					<p> {this.props.text} </p>
+				</div>
+			);
+		}
+	}
 	
 	class Confirm extends React.Component {
 		render() {
 			//Render a 'popup box' in front of everything. basically hide it normally, but make vis.
 			return (
 				<div id="popupConfirm">
-					<p> Confirm? fas</p>
+					<p> Confirmation Menu </p>
+					<AllFields fieldType="confirmField"/>
+					<BlueButton text="Confirm?" id="confirmButton"/>
+					<BlueButton text="Cancel." id="cancelButton"/>
 				</div>
-			)
+			);
 		}
 	}
 	
@@ -169,7 +181,7 @@ window.onload = function() {
 	///*
 	
 	ReactDOM.render(
-			<AllFields/>, 
+			<AllFields fieldType="formField"/>, 
 		document.getElementById('fie'));
 	ReactDOM.render(<Title/>,
 		document.getElementById('title'));
@@ -177,16 +189,18 @@ window.onload = function() {
 			<AllValues/>, 
 		document.getElementById('val'));
 	//*/
-	/*
+	///*
 		ReactDOM.render(
 		<Confirm/>,
 		document.getElementById('confirm'));
-	*/
+	//*/
 	window.addEventListener("keypress", function(e) {
 		//console.log(e.which,e.keyCode);
 		if (e.which == 13 || e.keyCode == 13) {
 			var errors  = checkVals();
 			if (errors == 0) {
+				$("#spotlight").css("visibility","visible");
+				$("#confirm").css("visibility","visible");
 				//Go to Confirmation.
 				
 			}
@@ -239,8 +253,8 @@ window.onload = function() {
 				<div id="fie"></div>
 				<div id="val"></div>
 			</div>
-			<div id="confirm"></div>
 		</div>
-		
+		<div id="spotlight"></div>
+		<div id="confirm"></div>
 	</body>
 </html>
